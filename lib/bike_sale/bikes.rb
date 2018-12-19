@@ -1,5 +1,5 @@
 class BikeSale::Bikes 
-	attr_accessor
+	attr_accessor :title, :price, :date_posted, :location
 
 	@@all = []
 
@@ -17,5 +17,5 @@ class BikeSale::Bikes
 	def self.all?
 		@@all 
 	end
-	
+
 end
