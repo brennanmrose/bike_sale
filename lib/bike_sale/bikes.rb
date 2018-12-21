@@ -3,9 +3,9 @@ class BikeSale::Bikes
 
 	@@all = []
 
-	def initialize(attributes_hash)
-		attributes_hash.each do |key, value|
-			self.send("#{key}=", value)
+	def initialize(attributes)
+		attributes.each do |key, value|
+				self.send("#{key}=", value)
 		end
 		self.save
 	end
@@ -14,7 +14,7 @@ class BikeSale::Bikes
 		@@all << self
 	end
 
-	def self.all?
+	def self.all
 		@@all 
 	end
 
