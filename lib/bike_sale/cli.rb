@@ -22,7 +22,9 @@ class BikeSale::CLI
 			# learn_more
 		puts "2. Select a different bike"
 			# list_bikes
-		puts "3. End CLI"
+		puts "3. Contact seller" 
+			# contact_seller
+		puts "4. End CLI"
 			# end_cli 
 	end
 
@@ -44,6 +46,10 @@ class BikeSale::CLI
 
 	def learn_more
 		#second layer scrape
+	end
+
+	def contact_seller
+		#provide url to page so user can see bike and contact seller
 	end
 
 

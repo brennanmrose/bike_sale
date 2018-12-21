@@ -10,6 +10,7 @@ class BikeSale::Scraper
 				# price: bike_card.css(".result-price")[0].text,
 				date_posted: bike_card.css(".result-date")[0].text,  
 				# location: bike_card.css(".result-hood")[0].text,
+				url: bike_card.css("a").attribute("href").value
 			}
 			attributes.fetch(:title, "none_provided")
 			attributes.fetch(:price, "none_provided")
@@ -18,6 +19,10 @@ class BikeSale::Scraper
 
 			bike = BikeSale::Bikes.new(attributes)
 		end	
+	end
+
+	def self.scrape_description(bike)
+		description = Nokogiri::HTML(open(bike.url))
 	end
 
 end
