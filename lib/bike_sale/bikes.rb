@@ -1,5 +1,5 @@
 class BikeSale::Bikes 
-	attr_accessor :title, :price, :date_posted, :location
+	attr_accessor :title, :price, :date_posted, :location, :url
 
 	@@all = []
 

@@ -16,10 +16,10 @@ class BikeSale::CLI
 		end
 	end
 
-	def menu 
+	def menu (bike)
 		puts "\nWhat would you like to do next? Please select a number from the following:"
 		puts "1. Learn more about this bike"
-			# learn_more
+			learn_more(bike)
 		puts "2. Select a different bike"
 			# list_bikes
 		puts "3. Contact seller" 
@@ -35,7 +35,7 @@ class BikeSale::CLI
 		if index.between?(0,5)
 			bike = BikeSale::Bikes.all[index]
 			puts "You have selected '#{bike.title}', posted on #{bike.date_posted}. This bike is priced at #{bike.price} and located near #{bike.location}."
-			menu 
+			menu(bike) 
 		elsif 
 			input == "exit"
 		else 
@@ -44,9 +44,23 @@ class BikeSale::CLI
 		end
 	end
 
-	def learn_more
-		#second layer scrape
+	def learn_more(bike)
+		BikeSale::Scraper.scrape_description(bike)
+		# binding.pry
+		# puts "Would you like to read more about this bike? (Y/N)"
+		# input = gets.strip.upcase
+		# until ["Y", "N", "YES", "NO"]
+		# 	puts "Please type Y or N"
+		# 	input = gets.strip.upcase
+		# end
+		# if input == "Y" || input == "YES"
+		# 	puts "...fetching description \n\n"
+		# 	BikeSale::Scraper.scrape_description(bike)
+		# 	puts "something"
+		# end
 	end
+
+	
 
 	def contact_seller
 		#provide url to page so user can see bike and contact seller
