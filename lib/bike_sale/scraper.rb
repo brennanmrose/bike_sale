@@ -25,8 +25,11 @@ class BikeSale::Scraper
 		specs.each do |spec|
 			array_of_specs << spec.text
 		end
+		bike_description = bike_specs.css("section.body #postingbody")
+		bike_description.each do |paragraph|
+			array_of_specs << paragraph.text.gsub("QR Code Link to This Post", "")
+		end
 		array_of_specs
-		# bike_spec = BikeSale::BikeSpecs.new(array_of_specs)
 	end
 
 end
