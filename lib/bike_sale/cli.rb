@@ -6,7 +6,7 @@ class BikeSale::CLI
 		BikeSale::Scraper.scrape_bikes
 		list_bikes
 		bike_details
-		menu
+		menu(bike)
 	end
 
 	def list_bikes
@@ -54,8 +54,9 @@ class BikeSale::CLI
 		end
 		if input == "Y" || input == "YES"
 			puts "...fetching description \n\n"
-			BikeSale::Scraper.scrape_specs(bike)
-			puts "something"
+			puts BikeSale::Scraper.scrape_specs(bike)
+			puts "If you are interested in purchasing this bike, please follow contact instructions found at #{bike.url}"
+			# BikeSale::BikeSpecs.new(attributes)
 		end
 	end
 

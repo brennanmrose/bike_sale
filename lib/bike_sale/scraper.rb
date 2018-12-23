@@ -19,11 +19,15 @@ class BikeSale::Scraper
 	end
 
 	def self.scrape_specs(bike)
-		description = Nokogiri::HTML(open(bike.url))
-		description_attr = {
-			description: description.css("section.body #postingbody").text.strip
-		}
-		binding.pry
+		bike_specs = Nokogiri::HTML(open(bike.url))
+		array_of_specs = Array.new 
+		specs = bike_specs.css("section.userbody div.mapAndAttrs p.attrgroup span")
+		specs.each do |spec|
+			array_of_specs << spec.text
+		end
+		array_of_specs
+		# bike_spec = BikeSale::BikeSpecs.new(array_of_specs)
 	end
 
 end
+				# description: description.css("section.body #postingbody").text.strip
