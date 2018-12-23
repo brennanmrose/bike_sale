@@ -5,8 +5,7 @@ class BikeSale::CLI
 		puts "Welcome to the Bike Sale CLI!"
 		BikeSale::Scraper.scrape_bikes
 		list_bikes
-		bike_details
-		menu(bike)
+		main_menu(bike)
 	end
 
 	def list_bikes
@@ -14,18 +13,26 @@ class BikeSale::CLI
 		BikeSale::Bike.all.each.with_index(1) do |bike, index|
 			puts "\n#{index}. #{bike.title.capitalize}"
 		end
+		bike_details
 	end
 
-	def menu(bike)
-		puts "\nWhat would you like to do next? Please select a number from the following:"
-		puts "1. Learn more about this bike"
+	def main_menu(bike)
+		puts "\nPlease select a number from the following options:"
+		puts "1. Enter (1) to see the list of bikes again"
+		puts "2. Enter (2) to read a more detailed description of your selected bike"
+		puts "3. Enter (exit) to end CLI"
+		input = gets.strip
+		if input == "1"
+			list_bikes
+		elsif 
+			input == "2"
 			learn_more(bike)
-		puts "2. Select a different bike"
-			# list_bikes
-		puts "3. Contact seller" 
-			# contact_seller
-		puts "4. End CLI"
-			# end_cli 
+		elsif  
+			input == "exit" || input == "3"
+			puts "Thank you for playing! Goodbye."
+		else puts "Sorry, that input cannot be found"
+			main_menu(bike) 
+		end	
 	end
 
 	def bike_details
@@ -35,36 +42,45 @@ class BikeSale::CLI
 		if index.between?(0,99)
 			bike = BikeSale::Bike.all[index]
 			puts "You have selected '#{bike.title}', posted on #{bike.date_posted}. This bike is priced at #{bike.price} and located near #{bike.location}."
-			menu(bike) 
+			main_menu(bike) 
 		elsif 
 			input == "exit"
+			puts "Thank you for playing! Goodbye."
 		else 
-			puts "Sorry, that input cannot be found"
+			puts "Sorry, that input cannot be found."
 			bike_details
 		end
 	end
 
 	def learn_more(bike)
 		BikeSale::Scraper.scrape_specs(bike)
-		puts "Would you like to read more about this bike? (Y/N)"
+		puts "...fetching description \n\n"
+		puts BikeSale::Scraper.scrape_specs(bike)
+		puts "If you are interested in purchasing this bike, please follow contact instructions found at #{bike.url}"
+		puts "Would you like to see the list of bikes again? (Y/N)"
 		input = gets.strip.upcase
-		until ["Y", "N", "YES", "NO"]
+		until ["Y","N","YES","NO"].include?(input)
 			puts "Please type Y or N"
-			input = gets.strip.upcase
+			input = gets.strip.upcase 
 		end
 		if input == "Y" || input == "YES"
-			puts "...fetching description \n\n"
-			puts BikeSale::Scraper.scrape_specs(bike)
-			puts "If you are interested in purchasing this bike, please follow contact instructions found at #{bike.url}"
-			# BikeSale::BikeSpecs.new(attributes)
-		end
+				list_bikes
+		else 
+				puts "Thank you for playing! Goodbye."
+		end	
 	end
 
-	
 
 	def contact_seller
-		#provide url to page so user can see bike and contact seller
+		#provide phone number (if provided) and email address
 	end
 
 
 end
+		# puts "Would you like to read more about this bike? (Y/N)"
+		# input = gets.strip.upcase
+		# until ["Y", "N", "YES", "NO"]
+		# 	puts "Please type Y or N"
+		# 	input = gets.strip.upcase
+		# end
+		# if input == "Y" || input == "YES"
