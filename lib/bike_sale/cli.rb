@@ -11,12 +11,12 @@ class BikeSale::CLI
 
 	def list_bikes
 		puts "Here are all of the current bikes for sale on Boston Craigslist:"
-		BikeSale::Bikes.all.each.with_index(1) do |bike, index|
+		BikeSale::Bike.all.each.with_index(1) do |bike, index|
 			puts "\n#{index}. #{bike.title.capitalize}"
 		end
 	end
 
-	def menu (bike)
+	def menu(bike)
 		puts "\nWhat would you like to do next? Please select a number from the following:"
 		puts "1. Learn more about this bike"
 			learn_more(bike)
@@ -32,8 +32,8 @@ class BikeSale::CLI
 		puts "\nPlease select the number of a bike you'd like to read more about:"
 		input = gets.strip
 		index = input.to_i-1 
-		if index.between?(0,5)
-			bike = BikeSale::Bikes.all[index]
+		if index.between?(0,99)
+			bike = BikeSale::Bike.all[index]
 			puts "You have selected '#{bike.title}', posted on #{bike.date_posted}. This bike is priced at #{bike.price} and located near #{bike.location}."
 			menu(bike) 
 		elsif 
@@ -45,19 +45,18 @@ class BikeSale::CLI
 	end
 
 	def learn_more(bike)
-		BikeSale::Scraper.scrape_description(bike)
-		# binding.pry
-		# puts "Would you like to read more about this bike? (Y/N)"
-		# input = gets.strip.upcase
-		# until ["Y", "N", "YES", "NO"]
-		# 	puts "Please type Y or N"
-		# 	input = gets.strip.upcase
-		# end
-		# if input == "Y" || input == "YES"
-		# 	puts "...fetching description \n\n"
-		# 	BikeSale::Scraper.scrape_description(bike)
-		# 	puts "something"
-		# end
+		BikeSale::Scraper.scrape_specs(bike)
+		puts "Would you like to read more about this bike? (Y/N)"
+		input = gets.strip.upcase
+		until ["Y", "N", "YES", "NO"]
+			puts "Please type Y or N"
+			input = gets.strip.upcase
+		end
+		if input == "Y" || input == "YES"
+			puts "...fetching description \n\n"
+			BikeSale::Scraper.scrape_specs(bike)
+			puts "something"
+		end
 	end
 
 	

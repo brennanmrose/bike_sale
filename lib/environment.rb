@@ -5,7 +5,8 @@ require 'open-uri'
 require_relative "bike_sale/version"
 require_relative "bike_sale/cli.rb"
 require_relative "bike_sale/scraper.rb"
-require_relative "bike_sale/bikes.rb"
+require_relative "bike_sale/bike.rb"
+require_relative "bike_sale/bike_specs.rb"
 
 # module BikeSale
 #   class Error < StandardError; end
