@@ -7,6 +7,7 @@ require_relative "bike_sale/cli.rb"
 require_relative "bike_sale/scraper.rb"
 require_relative "bike_sale/bike.rb"
 require_relative "bike_sale/bike_specs.rb"
+require_relative "bike_sale/bike_description.rb"
 
 # module BikeSale
 #   class Error < StandardError; end

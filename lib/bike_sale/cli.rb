@@ -33,14 +33,8 @@ class BikeSale::CLI
 	end
 
 	def learn_more(bike)
-		BikeSale::Scraper.scrape_specs(bike)
-		puts "...fetching description \n\n"
-		BikeSale::Scraper.scrape_specs(bike)
-		bike.spec.each do |a|
-			puts "#{a.bike_specs}"
-		end
-		# bike.spec_object
-		# puts BikeSale::Scraper.scrape_specs(bike)
+		get_specs(bike)
+		get_description(bike)
 		puts "If you are interested in purchasing this bike, please follow contact instructions found at #{bike.url}"
 		puts "Would you like to see the list of bikes again? (Y/N)"
 		input = gets.strip.upcase
@@ -51,8 +45,24 @@ class BikeSale::CLI
 		if input == "Y" || input == "YES"
 				list_bikes
 		else 
-				puts "Thank you for playing! Goodbye."
+			puts "Thank you for playing! Goodbye."
 		end	
+	end
+
+	def get_specs(bike)
+		puts "...fetching bike specs \n\n"
+		BikeSale::Scraper.scrape_specs(bike)
+		bike.spec.each do |a|
+			puts "#{a.bike_specs}"
+		end
+	end
+
+	def get_description(bike)
+		puts "...fetching description \n\n"
+		BikeSale::Scraper.scrape_description(bike)
+		bike.description.each do |a|
+			puts "#{a.description}"
+		end
 	end
 
 	def main_menu(bike)

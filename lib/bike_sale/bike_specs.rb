@@ -1,5 +1,5 @@
 class BikeSale::BikeSpecs
-	attr_accessor :bike, :description, :array_of_specs, :bike_specs 
+	attr_accessor :bike, :bike_specs 
 
 	def initialize
 	end
