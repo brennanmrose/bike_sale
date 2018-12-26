@@ -4,7 +4,7 @@ class BikeSale::CLI
 	def start 
 		puts "Welcome to the Bike Sale CLI!"
 		BikeSale::Scraper.scrape_bikes
-		# sort_bikes
+		sort_bikes
 		list_bikes
 		main_menu(bike)
 	end
@@ -15,7 +15,7 @@ class BikeSale::CLI
 
 	def list_bikes
 		puts "Here is a list of the most current bikes for sale on Boston Craigslist:"
-		BikeSale::Bike.all.each.with_index(1) do |bike, index|
+		@sorted_bikes.each.with_index(1) do |bike, index|
 			puts "#{index}. #{bike.title.capitalize}"
 		end
 		bike_details
