@@ -1,5 +1,4 @@
 class BikeSale::CLI
-	attr_accessor 
 
 	def start 
 		puts "Welcome to the Bike Sale CLI!"
@@ -14,25 +13,6 @@ class BikeSale::CLI
 			puts "\n#{index}. #{bike.title.capitalize}"
 		end
 		bike_details
-	end
-
-	def main_menu(bike)
-		puts "\nPlease select a number from the following options:"
-		puts "1. Enter (1) to see the list of bikes again"
-		puts "2. Enter (2) to read a more detailed description of your selected bike"
-		puts "3. Enter (exit) to end CLI"
-		input = gets.strip
-		if input == "1"
-			list_bikes
-		elsif 
-			input == "2"
-			learn_more(bike)
-		elsif  
-			input == "exit" || input == "3"
-			puts "Thank you for playing! Goodbye."
-		else puts "Sorry, that input cannot be found"
-			main_menu(bike) 
-		end	
 	end
 
 	def bike_details
@@ -55,7 +35,12 @@ class BikeSale::CLI
 	def learn_more(bike)
 		BikeSale::Scraper.scrape_specs(bike)
 		puts "...fetching description \n\n"
-		puts BikeSale::Scraper.scrape_specs(bike)
+		BikeSale::Scraper.scrape_specs(bike)
+		bike.spec.each do |a|
+			puts "#{a.bike_specs}"
+		end
+		# bike.spec_object
+		# puts BikeSale::Scraper.scrape_specs(bike)
 		puts "If you are interested in purchasing this bike, please follow contact instructions found at #{bike.url}"
 		puts "Would you like to see the list of bikes again? (Y/N)"
 		input = gets.strip.upcase
@@ -70,17 +55,27 @@ class BikeSale::CLI
 		end	
 	end
 
+	def main_menu(bike)
+		puts "\nPlease select a number from the following options:"
+		puts "1. Enter (1) to see the list of bikes again"
+		puts "2. Enter (2) to read a more detailed description of your selected bike"
+		puts "3. Enter (exit) to end CLI"
+		input = gets.strip
+		if input == "1"
+			list_bikes
+		elsif 
+			input == "2"
+			learn_more(bike)
+		elsif  
+			input == "exit" || input == "3"
+			puts "Thank you for playing! Goodbye."
+		else puts "Sorry, that input cannot be found"
+			main_menu(bike) 
+		end	
+	end
 
 	def contact_seller
 		#provide phone number (if provided) and email address
 	end
 
-
 end
-		# puts "Would you like to read more about this bike? (Y/N)"
-		# input = gets.strip.upcase
-		# until ["Y", "N", "YES", "NO"]
-		# 	puts "Please type Y or N"
-		# 	input = gets.strip.upcase
-		# end
-		# if input == "Y" || input == "YES"

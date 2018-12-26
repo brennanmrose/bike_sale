@@ -20,17 +20,27 @@ class BikeSale::Scraper
 
 	def self.scrape_specs(bike)
 		bike_specs = Nokogiri::HTML(open(bike.url))
-		array_of_specs = Array.new 
 		specs = bike_specs.css("section.userbody div.mapAndAttrs p.attrgroup span")
 		specs.each do |spec|
-			array_of_specs << spec.text
+			spec_object = BikeSale::BikeSpecs.new 
+			spec_object.bike_specs = spec.text
+			bike.add_spec(spec_object)
 		end
-		bike_description = bike_specs.css("section.body #postingbody")
-		bike_description.each do |paragraph|
-			array_of_specs << paragraph.text.gsub("QR Code Link to This Post", "")
-		end
-		array_of_specs
 	end
+
+	# def self.scrape_specs(bike)
+	# 	bike_specs = Nokogiri::HTML(open(bike.url))
+	# 	array_of_specs = Array.new 
+	# 	specs = bike_specs.css("section.userbody div.mapAndAttrs p.attrgroup span")
+	# 	specs.each do |spec|
+	# 		array_of_specs << spec.text
+	# 	end
+	# 	bike_description = bike_specs.css("section.body #postingbody")
+	# 	bike_description.each do |paragraph|
+	# 		array_of_specs << paragraph.text.gsub("QR Code Link to This Post", "")
+	# 	end
+	# 	array_of_specs
+	# end
 
 end
 				# description: description.css("section.body #postingbody").text.strip
