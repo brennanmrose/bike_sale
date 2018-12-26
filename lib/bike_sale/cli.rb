@@ -2,9 +2,11 @@ class BikeSale::CLI
 	attr_accessor :sorted_bikes
 
 	def start 
-		puts "Welcome to the Bike Sale CLI!"
+		puts "Welcome to the Boston Bike Sale CLI!"
 		BikeSale::Scraper.scrape_bikes
 		sort_bikes
+		puts "Hit Enter when you're ready to see the most current bikes for sale on Boston Craigslist"
+		input = gets.strip
 		list_bikes
 	end
 
@@ -13,7 +15,7 @@ class BikeSale::CLI
 	end
 
 	def list_bikes
-		puts "Here is a list of the most current bikes for sale on Boston Craigslist:"
+		puts "The bikes listed below are sorted from least expensive to most expensive:"
 		@sorted_bikes.each.with_index(1) do |bike, index|
 			puts "#{index}. #{bike.title.capitalize} - $#{bike.price}"
 		end
@@ -39,15 +41,15 @@ class BikeSale::CLI
 
 	def main_menu(bike)
 		puts "\nPlease select a number from the following options:"
-		puts "1. Enter (1) to see the list of bikes again"
-		puts "2. Enter (2) to read a more detailed description of your selected bike"
+		puts "1. Enter (1) to read a more detailed description of the selected bike"
+		puts "2. Enter (2) to see the list of bikes again"
 		puts "3. Enter (exit) to end CLI"
 		input = gets.strip
 		if input == "1"
-			list_bikes
+			learn_more(bike)
 		elsif 
 			input == "2"
-			learn_more(bike)
+			list_bikes
 		elsif  
 			input == "exit" || input == "3"
 			puts "Thank you for playing! Goodbye."
@@ -75,7 +77,7 @@ class BikeSale::CLI
 	end
 
 	def get_specs(bike)
-		puts "...fetching bike specs \n\n"
+		puts "...fetching more information \n\n"
 		BikeSale::Scraper.scrape_specs(bike)
 		bike.spec.each do |bicycle|
 			puts "#{bicycle.bike_specs}"
@@ -83,7 +85,6 @@ class BikeSale::CLI
 	end
 
 	def get_description(bike)
-		puts "...fetching description \n\n"
 		BikeSale::Scraper.scrape_description(bike)
 		bike.description.each do |bicycle|
 			puts "#{bicycle.description}"
