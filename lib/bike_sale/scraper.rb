@@ -38,4 +38,10 @@ class BikeSale::Scraper
 		end
 	end
 
+	def self.scrape_contact_info(bike)
+		bike_specs = Nokogiri::HTML(open(bike.url))
+		binding.pry
+		# contact_info = bike_specs.
+	end
+
 end
