@@ -9,7 +9,7 @@ class BikeSale::CLI
 	end
 
 	def sort_bikes
-		@sorted_bikes = BikeSale::Bike.all.sort_by{|bike| bike.price}
+		@sorted_bikes = BikeSale::Bike.all.sort_by{|bike| bike.price.to_i}
 	end
 
 	def list_bikes
@@ -24,17 +24,17 @@ class BikeSale::CLI
 		puts "\nPlease select the number of a bike you'd like to read more about:"
 		input = gets.strip
 		index = input.to_i-1 
-		# if index.between?(0,150)
+		if index.between?(0,@sorted_bikes.length-1)
 			bike = @sorted_bikes[index]
 			puts "You have selected '#{bike.title}', posted on #{bike.date_posted}. This bike is priced at $#{bike.price} and located near #{bike.location}."
 			main_menu(bike) 
-		# elsif 
-		# 	input == "exit"
-		# 	puts "Thank you for playing! Goodbye."
-		# else 
-		# 	puts "Sorry, that input cannot be found."
-		# 	bike_details
-		# end
+		elsif 
+			input == "exit"
+			puts "Thank you for playing! Goodbye."
+		else 
+			puts "Sorry, that input cannot be found."
+			bike_details
+		end
 	end
 
 	def main_menu(bike)
@@ -51,7 +51,8 @@ class BikeSale::CLI
 		elsif  
 			input == "exit" || input == "3"
 			puts "Thank you for playing! Goodbye."
-		else puts "Sorry, that input cannot be found"
+		else 
+			puts "Sorry, that input cannot be found"
 			main_menu(bike) 
 		end	
 	end
