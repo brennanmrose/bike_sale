@@ -26,7 +26,7 @@ class BikeSale::CLI
 		input = gets.strip
 		index = input.to_i-1 
 		if index.between?(0,150)
-			bike = BikeSale::Bike.all[index]
+			bike = @sorted_bikes[index]
 			puts "You have selected '#{bike.title}', posted on #{bike.date_posted}. This bike is priced at $#{bike.price} and located near #{bike.location}."
 			main_menu(bike) 
 		elsif 
