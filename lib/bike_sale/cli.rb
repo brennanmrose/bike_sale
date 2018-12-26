@@ -15,7 +15,7 @@ class BikeSale::CLI
 	def list_bikes
 		puts "Here is a list of the most current bikes for sale on Boston Craigslist:"
 		@sorted_bikes.each.with_index(1) do |bike, index|
-			puts "#{index}. #{bike.title.capitalize}"
+			puts "#{index}. #{bike.title.capitalize} - $#{bike.price}"
 		end
 		bike_details
 	end
