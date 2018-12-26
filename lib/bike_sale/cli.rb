@@ -17,7 +17,11 @@ class BikeSale::CLI
 	def list_bikes
 		puts "The bikes listed below are sorted from least expensive to most expensive:".bold
 		@sorted_bikes.each.with_index(1) do |bike, index|
-			puts "#{index}. #{bike.title.capitalize} - $#{bike.price}"
+			if index % 2 == 0
+				puts "#{index}. #{bike.title.capitalize} - $#{bike.price}".colorize(:color => :white, :background => :light_black).bold
+			else
+				puts "#{index}. #{bike.title.capitalize} - $#{bike.price}"
+			end
 		end
 		bike_details
 	end
@@ -34,7 +38,7 @@ class BikeSale::CLI
 			input == "exit"
 			puts "Thank you for playing! Goodbye."
 		else 
-			puts "Sorry, that input cannot be found".colorize(:red).italic
+			puts "Sorry, that input cannot be found".colorize(:red).italic.blink
 			bike_details
 		end
 	end
@@ -54,7 +58,7 @@ class BikeSale::CLI
 			input == "exit" || input == "3"
 			puts "Thank you for playing! Goodbye."
 		else 
-			puts "Sorry, that input cannot be found".colorize(:red).italic
+			puts "Sorry, that input cannot be found".colorize(:red).italic.blink
 			main_menu(bike) 
 		end	
 	end
@@ -81,7 +85,7 @@ class BikeSale::CLI
 		puts "\n-----------------Bike Specs-----------------\n".bold
 		BikeSale::Scraper.scrape_specs(bike)
 		bike.spec.each do |bicycle|
-			puts "	#{bicycle.bike_specs}"
+			puts "	#{bicycle.bike_specs.capitalize}"
 		end
 	end
 
@@ -89,14 +93,16 @@ class BikeSale::CLI
 		puts "\n-----------------Description-----------------\n".bold
 		BikeSale::Scraper.scrape_description(bike)
 		bike.description.each do |bicycle|
-			puts "	#{bicycle.description}"
+			puts "#{bicycle.description}"
 		end
 	end
 
 	def contact_seller(bike)
-		puts "\n----Interested in purchasing this bike?-----".bold
+		puts "\n-----Interested in purchasing this bike?-----".bold
 		puts "Please follow contact instructions found at:" 
 		puts "#{bike.url}".colorize(:blue)
 	end
 
 end
+
+# .colorize(:color => :black, :background => :light_white)
