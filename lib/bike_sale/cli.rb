@@ -1,16 +1,22 @@
 class BikeSale::CLI
+	attr_accessor :sorted_bikes
 
 	def start 
 		puts "Welcome to the Bike Sale CLI!"
 		BikeSale::Scraper.scrape_bikes
+		# sort_bikes
 		list_bikes
 		main_menu(bike)
 	end
 
+	def sort_bikes
+		@sorted_bikes = BikeSale::Bike.all.sort_by{|bike| bike.price}
+	end
+
 	def list_bikes
-		puts "Here are all of the current bikes for sale on Boston Craigslist:"
+		puts "Here is a list of the most current bikes for sale on Boston Craigslist:"
 		BikeSale::Bike.all.each.with_index(1) do |bike, index|
-			puts "\n#{index}. #{bike.title.capitalize}"
+			puts "#{index}. #{bike.title.capitalize}"
 		end
 		bike_details
 	end
@@ -19,9 +25,9 @@ class BikeSale::CLI
 		puts "\nPlease select the number of a bike you'd like to read more about:"
 		input = gets.strip
 		index = input.to_i-1 
-		if index.between?(0,99)
+		if index.between?(0,150)
 			bike = BikeSale::Bike.all[index]
-			puts "You have selected '#{bike.title}', posted on #{bike.date_posted}. This bike is priced at #{bike.price} and located near #{bike.location}."
+			puts "You have selected '#{bike.title}', posted on #{bike.date_posted}. This bike is priced at $#{bike.price} and located near #{bike.location}."
 			main_menu(bike) 
 		elsif 
 			input == "exit"
