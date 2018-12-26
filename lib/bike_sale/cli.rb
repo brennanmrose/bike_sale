@@ -62,7 +62,7 @@ class BikeSale::CLI
 	def learn_more(bike)
 		get_specs(bike)
 		get_description(bike)
-		puts "\nIf you are interested in purchasing this bike, please follow contact instructions found at #{bike.url}"
+		contact_seller(bike)
 		puts "\nWould you like to see the list of bikes again? (Y/N)"
 		input = gets.strip.upcase
 		until ["Y","N","YES","NO"].include?(input)
@@ -91,8 +91,8 @@ class BikeSale::CLI
 		end
 	end
 
-	def contact_seller
-		#provide phone number (if provided) and email address
+	def contact_seller(bike)
+		puts "\nIf you are interested in purchasing this bike, please follow contact instructions found at #{bike.url}"
 	end
 
 end
