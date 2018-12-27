@@ -38,7 +38,7 @@ class BikeSale::CLI
 			input == "exit"
 			puts "Thank you for playing! Goodbye."
 		else 
-			puts "Sorry, that input cannot be found".colorize(:red).italic
+			input_error
 			bike_details
 		end
 	end
@@ -58,7 +58,7 @@ class BikeSale::CLI
 			input == "exit" || input == "3"
 			puts "Thank you for playing! Goodbye."
 		else 
-			puts "Sorry, that input cannot be found".colorize(:red).italic
+			input_error
 			main_menu(bike) 
 		end	
 	end
@@ -101,6 +101,10 @@ class BikeSale::CLI
 		puts "\n-----Interested in purchasing this bike?-----".bold
 		puts "Please follow contact instructions found at:" 
 		puts "#{bike.url}".colorize(:blue)
+	end
+
+	def input_error
+		puts "Sorry, that input cannot be found".colorize(:red).italic
 	end
 
 end
