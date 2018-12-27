@@ -18,7 +18,7 @@ class BikeSale::CLI
 		puts "The bikes listed below are sorted from least expensive to most expensive:".bold
 		@sorted_bikes.each.with_index(1) do |bike, index|
 			if index % 2 == 0
-				puts "#{index}. #{bike.title.capitalize} - $#{bike.price}".colorize(:color => :white, :background => :light_black).bold
+				puts "#{index}. #{bike.title.capitalize} - $#{bike.price}".colorize(:color => :black, :background => :light_white)
 			else
 				puts "#{index}. #{bike.title.capitalize} - $#{bike.price}"
 			end
@@ -38,7 +38,7 @@ class BikeSale::CLI
 			input == "exit"
 			puts "Thank you for playing! Goodbye."
 		else 
-			puts "Sorry, that input cannot be found".colorize(:red).italic.blink
+			puts "Sorry, that input cannot be found".colorize(:red).italic
 			bike_details
 		end
 	end
@@ -58,7 +58,7 @@ class BikeSale::CLI
 			input == "exit" || input == "3"
 			puts "Thank you for playing! Goodbye."
 		else 
-			puts "Sorry, that input cannot be found".colorize(:red).italic.blink
+			puts "Sorry, that input cannot be found".colorize(:red).italic
 			main_menu(bike) 
 		end	
 	end
@@ -104,5 +104,3 @@ class BikeSale::CLI
 	end
 
 end
-
-# .colorize(:color => :black, :background => :light_white)
