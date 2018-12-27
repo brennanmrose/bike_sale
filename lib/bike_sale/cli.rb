@@ -36,7 +36,7 @@ class BikeSale::CLI
 			main_menu(bike) 
 		elsif 
 			input == "exit"
-			puts "Thank you for playing! Goodbye."
+			exit_cli
 		else 
 			input_error
 			bike_details
@@ -56,7 +56,7 @@ class BikeSale::CLI
 			list_bikes
 		elsif  
 			input == "exit" || input == "3"
-			puts "Thank you for playing! Goodbye."
+			exit_cli
 		else 
 			input_error
 			main_menu(bike) 
@@ -76,7 +76,7 @@ class BikeSale::CLI
 		if input == "Y" || input == "YES"
 				list_bikes
 		else 
-			puts "Thank you for playing! Goodbye."
+			exit_cli
 		end	
 	end
 
@@ -105,6 +105,10 @@ class BikeSale::CLI
 
 	def input_error
 		puts "Sorry, that input cannot be found".colorize(:red).italic
+	end
+
+	def exit_cli
+		 puts "Thank you for playing! Goodbye."
 	end
 
 end
