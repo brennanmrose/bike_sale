@@ -72,8 +72,9 @@ class BikeSale::CLI
 	end
 
 	def learn_more(bike)
-		get_specs(bike)
-		get_description(bike)
+		# get_specs(bike)
+		# get_description(bike)
+		get_more_info(bike)
 		contact_seller(bike)
 
 		puts "\nWould you like to see the list of bikes again? (Y/N)".bold
@@ -93,27 +94,13 @@ class BikeSale::CLI
 
 	end
 
-	def get_specs(bike)
+	def get_more_info(bike)
+		BikeSale::Scraper.scrape_more_info(bike) if bike.description == nil
 		puts "...fetching more information \n\n".italic
 		puts "\n-----------------Bike Specs-----------------\n".bold
-
-		BikeSale::Scraper.scrape_specs(bike)
-
-		bike.spec.each do |bicycle|
-			puts "	#{bicycle.bike_specs.capitalize}"
-		end
-
-	end
-
-	def get_description(bike)
+		puts "	#{bike.spec.capitalize}"
 		puts "\n-----------------Description-----------------\n".bold
-
-		BikeSale::Scraper.scrape_description(bike)
-
-		bike.description.each do |bicycle|
-			puts "#{bicycle.description}"
-		end
-
+		puts "#{bike.description}"
 	end
 
 	def contact_seller(bike)
